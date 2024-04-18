@@ -28,11 +28,17 @@ public class PedidoServiceImpl implements PedidoService {
         return pedidoRespository.findAll();
     }
 
+
     @Override
     public Pedido guardar(Pedido pedido) {
-        return pedidoRespository.save(pedido);
+        pedido.setClienteDto(clienteFeign.buscarPorId(pedido.getClienteId()).getBody());
+        if (pedido != null) {
+            Pedido pedidoGuardado = pedidoRespository.save(pedido);
+            return pedidoGuardado;
+        }else {
+            throw new RuntimeException("El cliente con ID " + pedido.getClienteId() + " no existe");
+        }
     }
-
     @Override
     public Pedido buscarPorId(Integer id) {
         Pedido pedido = pedidoRespository.findById(id).get();
