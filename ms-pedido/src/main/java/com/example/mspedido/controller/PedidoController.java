@@ -26,7 +26,7 @@ public class PedidoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Pedido> buscarPOrId(@PathVariable(required = true) Integer id) {
-        return ResponseEntity.ok(pedidoService.buscarPorId(id).get());
+        return ResponseEntity.ok(pedidoService.buscarPorId(id));
     }
 
     @PutMapping
