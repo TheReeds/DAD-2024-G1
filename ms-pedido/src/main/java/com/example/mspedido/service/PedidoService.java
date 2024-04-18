@@ -11,7 +11,7 @@ public interface PedidoService {
 
     public Pedido guardar(Pedido pedido);
 
-    public Optional<Pedido> buscarPorId(Integer id);
+    public Pedido buscarPorId(Integer id);
 
     public Pedido actualizar(Pedido pedido);
 

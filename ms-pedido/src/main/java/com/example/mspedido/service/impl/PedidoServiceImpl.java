@@ -1,6 +1,7 @@
 package com.example.mspedido.service.impl;
 
 import com.example.mspedido.entity.Pedido;
+import com.example.mspedido.feign.ClienteFeign;
 import com.example.mspedido.repository.PedidoRespository;
 import com.example.mspedido.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import java.util.Optional;
 public class PedidoServiceImpl implements PedidoService {
     @Autowired
     PedidoRespository pedidoRespository;
+    @Autowired
+    private ClienteFeign clienteFeign;
+
 
     @Override
     public List<Pedido> listar() {
@@ -25,8 +29,10 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public Optional<Pedido> buscarPorId(Integer id) {
-        return pedidoRespository.findById(id);
+    public Pedido buscarPorId(Integer id) {
+        Pedido pedido = pedidoRespository.findById(id).get();
+        pedido.setClienteDto(clienteFeign.findById(pedido.getClienteId()).getBody());
+        return pedido;
     }
 
     @Override
