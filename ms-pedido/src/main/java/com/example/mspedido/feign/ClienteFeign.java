@@ -14,8 +14,6 @@ public interface ClienteFeign {
     @CircuitBreaker(name = "clienteListarPorIdCB", fallbackMethod = "fallbackClientePorId")
     ResponseEntity<ClienteDto> buscarPorId(@PathVariable(required = true) Integer id);
     default ResponseEntity<ClienteDto> fallbackClientePorId(Integer id, Exception e) {
-        ClienteDto clienteDto = new ClienteDto();
-        clienteDto.setId(9000000);
-        return ResponseEntity.ok(clienteDto);
+        return ResponseEntity.ok(new ClienteDto());
     }
 }
