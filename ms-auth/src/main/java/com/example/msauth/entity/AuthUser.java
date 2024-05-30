@@ -6,10 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -22,4 +21,9 @@ public class AuthUser {
     private int id;
     private String username;
     private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "auth_user_roles",
+            joinColumns = @JoinColumn(name = "auth_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 }

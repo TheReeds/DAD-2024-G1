@@ -32,6 +32,7 @@ public class AuthUserController {
 
     @PostMapping("/create")
     public ResponseEntity<AuthUser> create(@RequestBody AuthUserDto authUserDto) {
+        System.out.println(authUserDto.toString());
         AuthUser authUser = authUserService.save(authUserDto);
         if (authUser == null)
             return ResponseEntity.badRequest().build();
