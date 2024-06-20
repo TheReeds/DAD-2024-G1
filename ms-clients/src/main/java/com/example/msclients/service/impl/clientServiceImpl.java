@@ -22,10 +22,10 @@ public class clientServiceImpl implements clientService {
     @Override
     public clients save(clients client) {
         return clientRepository.save(client);
-    }
 
+    }
     @Override
-    public Optional<clients> findById(Integer id) {
+    public Optional<clients>findById(Integer id) {
         return clientRepository.findById(id);
     }
 
